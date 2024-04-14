@@ -1,5 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:ggoom_mongs/routes.dart';
+import 'package:ggoom_mongs/sources/presentation/providers/dream_provider.dart';
+import 'package:ggoom_mongs/sources/presentation/providers/navigation_provider.dart';
+import 'package:ggoom_mongs/sources/presentation/screens/main_screen.dart';
+import 'package:ggoom_mongs/sources/presentation/screens/record_screen.dart';
 import 'package:ggoom_mongs/themes/color_schemes.g.dart';
+import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
+
+final GoRouter _router = GoRouter(
+  initialLocation: '/',
+  routes: [
+    GoRoute(
+      path: mainScreen,
+      builder: (BuildContext context, GoRouterState state) =>
+          const MainScreen(),
+    ),
+    GoRoute(
+      path: recordScreen,
+      builder: (BuildContext context, GoRouterState state) =>
+          const RecordScreen(),
+    ),
+  ],
+);
 
 void main() {
   runApp(const MyApp());
@@ -10,64 +34,29 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        useMaterial3: true,
-        colorScheme: lightColorScheme
-      ),
-      darkTheme: ThemeData(
-        useMaterial3: true,
-        colorScheme: darkColorScheme
-      ),
-      home: const MyHomePage(title: 'Flutter Demo home Page'),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-          ],
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (context) => NavigationProvider(),
         ),
+        ChangeNotifierProvider(
+          create: (context) => DreamProvider(),
+        )
+      ],
+      child: MaterialApp.router(
+        title: AppLocalizations.of(context)?.appName ?? "Ggoom Mongs",
+        theme: ThemeData(
+            useMaterial3: true,
+            colorScheme: lightColorScheme,
+            iconTheme: IconThemeData(color: lightColorScheme.primary)),
+        darkTheme: ThemeData(
+            useMaterial3: true,
+            colorScheme: darkColorScheme,
+            iconTheme: IconThemeData(color: lightColorScheme.primary)),
+        routerConfig: _router,
+        localizationsDelegates: AppLocalizations.localizationsDelegates,
+        supportedLocales: AppLocalizations.supportedLocales,
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }

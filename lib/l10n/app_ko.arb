@@ -1,0 +1,12 @@
+{
+  "appName": "꿈몽",
+  "confirm": "확인",
+  "notice": "잠시만요!",
+  "save": "저장",
+  "recordDream": "꿈 기록하기",
+  "enterYourDream": "꿈을 입력하세요",
+  "cancel": "취소",
+  "homeScreenTitle": "홈",
+  "historyScreenTitle": "기록",
+  "alertMessageForSavingDream": "꿈을 저장하시겠어요? 저장 후에는 수정할 수 없어요."
+}

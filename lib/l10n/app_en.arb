@@ -1,0 +1,12 @@
+{
+  "appName": "Ggoom Mong",
+  "confirm": "confirm",
+  "notice": "notice",
+  "save": "save",
+  "recordDream": "Record dream",
+  "enterYourDream": "Enter your dream...",
+  "cancel": "cancel",
+  "homeScreenTitle": "Home",
+  "historyScreenTitle": "History",
+  "alertMessageForSavingDream": "Once saved, you cannot modify. Do you want to continue?"
+}
